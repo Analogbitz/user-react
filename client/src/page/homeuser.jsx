@@ -1,6 +1,16 @@
 import React, { useState } from "react";
 import Navbar from "../components/Navbar";
 import axios from "axios";
+import dayjs from 'dayjs';
+import buddhistEra from "dayjs/plugin/buddhistEra";
+import th from 'dayjs/locale/th';
+dayjs.extend(buddhistEra);
+
+const DateLongTH = (date) => {
+  dayjs.locale(th); // ตั้งค่าภาษาเป็นภาษาไทย
+  return dayjs(date).format("DD MMMM BBBB");
+};
+
 
 function homeuser() {
   const [phone, setPhone] = useState('');
@@ -57,7 +67,7 @@ function homeuser() {
               <li key={order.order_id}>
                 <p>รหัสรายการซ่อม: {order.order_id}</p>
                 <p>คำอธิบาย: {order.description}</p>
-                <p>เวลาโดยประมาณ: {order.estimate_time}</p>
+                <p>เวลาโดยประมาณ: {DateLongTH(order.estimate_time)}</p>
                 <p>ชื่อลูกค้า: {order.name}</p>
                 <p>เบอร์โทร: {order.phone}</p>
                 <p>ทะเบียนรถ: {order.plate_license}</p>
